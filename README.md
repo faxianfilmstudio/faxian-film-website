@@ -11,7 +11,7 @@ npm ci --cache /workspace/.npm-cache
 npm run dev -- --port 5173 --strictPort
 ```
 
-在自己的电脑运行时，在浏览器打开 `http://localhost:5173`。云环境需使用平台的端口预览或转发功能访问 5173 端口；本项目没有公网部署地址。
+在自己的电脑运行时，在浏览器打开 `http://localhost:5173/faxian-film-website/`。云环境需使用平台的端口预览或转发功能访问 5173 端口；本项目没有公网部署地址。
 
 ```bash
 npm run build
@@ -49,3 +49,16 @@ git push origin HEAD:main
 ```
 
 如果 `main` 有更新或受分支保护，请先协调合并，或推送新分支后创建 Pull Request，勿强制推送。发布云环境配置与提交 GitHub 是不同操作。
+
+
+## GitHub Pages 自动部署
+
+`vite.config.js` 将资源基础路径设置为 `/faxian-film-website/`，图片使用 Vite 的 `BASE_URL`，图标使用 HTML 的 `%BASE_URL%`。本地开发与生产预览也从此子路径访问。
+
+`.github/workflows/deploy-pages.yml` 在 `main` 更新时自动运行，也支持从 Actions 手动触发。流程使用 Node.js 24、`npm ci` 和 `npm run build`，通过 GitHub 官方 Pages Actions 上传 `dist/` 并部署。构建仅需读取代码；部署任务单独获得 `pages: write` 和 `id-token: write`，使用 `github-pages` 环境，不需要个人访问令牌。
+
+首次启用：在 Settings → Pages 中将 Source 设为 GitHub Actions，然后合并部署配置的 Pull Request。打开仓库 Actions → Deploy website to GitHub Pages，检查 build 和 deploy 两个任务。全部成功后访问：
+
+https://faxianfilmstudio.github.io/faxian-film-website/
+
+若环境要求审核，在该运行页点击 Review deployments 并批准。后续合并到 main 的更新都会自动部署。工作流失败时打开失败的步骤查看日志，修复后重新运行，勿通过强制推送覆盖其他代码。
