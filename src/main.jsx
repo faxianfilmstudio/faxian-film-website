@@ -4,11 +4,11 @@ import { ArrowUpRight, ArrowRight, Play, Aperture, Film, Sparkles, ScanLine, Men
 import './styles.css';
 
 const images = {
- hero: '/images/hero.svg',
- city: '/images/city.svg',
- mountain: '/images/mountain.svg',
- concert: '/images/concert.svg',
- team: '/images/team.svg',
+ hero: `${import.meta.env.BASE_URL}images/hero.svg`,
+ city: `${import.meta.env.BASE_URL}images/city.svg`,
+ mountain: `${import.meta.env.BASE_URL}images/mountain.svg`,
+ concert: `${import.meta.env.BASE_URL}images/concert.svg`,
+ team: `${import.meta.env.BASE_URL}images/team.svg`,
 };
 const works = [
  {title:'界外之境',en:'BEYOND THE VISIBLE',category:'AI 短片',image:images.city,desc:'以星空与未知空间为灵感，探索 AI 影像中的光影、叙事与想象边界。'},
